@@ -1,0 +1,119 @@
+// NX Expressions - Skids & Floorboards (Force Small Custom Option v1)
+// Generated: 2025-06-05 16:00:46
+
+// --- USER INPUTS & CRATE CONSTANTS ---
+[lbm]product_weight = 300.000
+[Inch]product_length_input = 30.000
+[Inch]product_width_input = 40.000
+[Inch]clearance_side_input = 2.500
+BOOL_Allow_3x4_Skids_Input = 1
+BOOL_Force_Small_Custom_Floorboard = 1
+[Inch]INPUT_Panel_Thickness = 0.250
+[Inch]INPUT_Cleat_Thickness = 0.750
+[Inch]INPUT_Floorboard_Actual_Thickness = 1.500
+[Inch]INPUT_Max_Allowable_Middle_Gap = 0.250
+[Inch]INPUT_Min_Custom_Lumber_Width = 2.500
+
+// --- CALCULATED CRATE DIMENSIONS ---
+[Inch]crate_overall_width_OD = 45.000
+[Inch]crate_overall_length_OD = 35.000
+[Inch]CALC_FB_Usable_Coverage_Y = 33.000
+[Inch]CALC_FB_Start_Y_Offset_Abs = 1.000
+
+// --- SKID PARAMETERS ---
+// Skid Lumber Callout: 3x4 (oriented for 3.5 H)
+[Inch]Skid_Actual_Height = 3.500
+[Inch]Skid_Actual_Width = 2.500
+[Inch]Skid_Actual_Length = 35.000
+CALC_Skid_Count = 3
+[Inch]CALC_Skid_Pitch = 21.2500
+[Inch]X_Master_Skid_Origin_Offset = -22.5000
+
+// --- FLOORBOARD PARAMETERS ---
+[Inch]FB_Board_Actual_Length = 45.000
+[Inch]FB_Board_Actual_Thickness = 1.500
+[Inch]CALC_FB_Actual_Middle_Gap = 0.0000
+[Inch]CALC_FB_Center_Custom_Board_Width = 1.2500
+[Inch]DEBUG_FB_Final_Unused_Space = 0.0000
+
+FB_Inst_1_Suppress_Flag = 0
+[Inch]FB_Inst_1_Actual_Width = 11.2500
+[Inch]FB_Inst_1_Y_Pos_Abs = 1.0000
+
+FB_Inst_2_Suppress_Flag = 0
+[Inch]FB_Inst_2_Actual_Width = 11.2500
+[Inch]FB_Inst_2_Y_Pos_Abs = 12.2500
+
+FB_Inst_3_Suppress_Flag = 0
+[Inch]FB_Inst_3_Actual_Width = 9.2500
+[Inch]FB_Inst_3_Y_Pos_Abs = 23.5000
+
+FB_Inst_4_Suppress_Flag = 0
+[Inch]FB_Inst_4_Actual_Width = 1.2500
+[Inch]FB_Inst_4_Y_Pos_Abs = 32.7500
+
+FB_Inst_5_Suppress_Flag = 1
+[Inch]FB_Inst_5_Actual_Width = 0.0001
+[Inch]FB_Inst_5_Y_Pos_Abs = 0.0000
+
+FB_Inst_6_Suppress_Flag = 1
+[Inch]FB_Inst_6_Actual_Width = 0.0001
+[Inch]FB_Inst_6_Y_Pos_Abs = 0.0000
+
+FB_Inst_7_Suppress_Flag = 1
+[Inch]FB_Inst_7_Actual_Width = 0.0001
+[Inch]FB_Inst_7_Y_Pos_Abs = 0.0000
+
+FB_Inst_8_Suppress_Flag = 1
+[Inch]FB_Inst_8_Actual_Width = 0.0001
+[Inch]FB_Inst_8_Y_Pos_Abs = 0.0000
+
+FB_Inst_9_Suppress_Flag = 1
+[Inch]FB_Inst_9_Actual_Width = 0.0001
+[Inch]FB_Inst_9_Y_Pos_Abs = 0.0000
+
+FB_Inst_10_Suppress_Flag = 1
+[Inch]FB_Inst_10_Actual_Width = 0.0001
+[Inch]FB_Inst_10_Y_Pos_Abs = 0.0000
+
+FB_Inst_11_Suppress_Flag = 1
+[Inch]FB_Inst_11_Actual_Width = 0.0001
+[Inch]FB_Inst_11_Y_Pos_Abs = 0.0000
+
+FB_Inst_12_Suppress_Flag = 1
+[Inch]FB_Inst_12_Actual_Width = 0.0001
+[Inch]FB_Inst_12_Y_Pos_Abs = 0.0000
+
+FB_Inst_13_Suppress_Flag = 1
+[Inch]FB_Inst_13_Actual_Width = 0.0001
+[Inch]FB_Inst_13_Y_Pos_Abs = 0.0000
+
+FB_Inst_14_Suppress_Flag = 1
+[Inch]FB_Inst_14_Actual_Width = 0.0001
+[Inch]FB_Inst_14_Y_Pos_Abs = 0.0000
+
+FB_Inst_15_Suppress_Flag = 1
+[Inch]FB_Inst_15_Actual_Width = 0.0001
+[Inch]FB_Inst_15_Y_Pos_Abs = 0.0000
+
+FB_Inst_16_Suppress_Flag = 1
+[Inch]FB_Inst_16_Actual_Width = 0.0001
+[Inch]FB_Inst_16_Y_Pos_Abs = 0.0000
+
+FB_Inst_17_Suppress_Flag = 1
+[Inch]FB_Inst_17_Actual_Width = 0.0001
+[Inch]FB_Inst_17_Y_Pos_Abs = 0.0000
+
+FB_Inst_18_Suppress_Flag = 1
+[Inch]FB_Inst_18_Actual_Width = 0.0001
+[Inch]FB_Inst_18_Y_Pos_Abs = 0.0000
+
+FB_Inst_19_Suppress_Flag = 1
+[Inch]FB_Inst_19_Actual_Width = 0.0001
+[Inch]FB_Inst_19_Y_Pos_Abs = 0.0000
+
+FB_Inst_20_Suppress_Flag = 1
+[Inch]FB_Inst_20_Actual_Width = 0.0001
+[Inch]FB_Inst_20_Y_Pos_Abs = 0.0000
+
+// End of Expressions
