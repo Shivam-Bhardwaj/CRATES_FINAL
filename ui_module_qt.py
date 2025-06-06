@@ -32,6 +32,30 @@ class CrateGeneratorUI(QMainWindow):
         main_layout.setSpacing(18)
         main_layout.setContentsMargins(24, 24, 24, 16)
 
+        # --- General Crate & Panel Parameters ---
+        general_group = QGroupBox("General Crate & Panel Parameters")
+        general_grid = QGridLayout()
+        general_grid.setHorizontalSpacing(24)
+        general_grid.setVerticalSpacing(18)
+        general_group.setLayout(general_grid)
+        general_fields = [
+            ("Product Actual Height (in):", "50.0", "product_actual_height", "Actual product height in inches"),
+            ("Clearance Above Product (in):", "2.0", "clearance_above_product", "Clearance above product in inches"),
+            ("Ground Clearance (End Panels, in):", "1.0", "ground_clearance", "Ground clearance for end panels in inches"),
+            ("Cleat Actual Width (in):", "3.5", "cleat_actual_width", "Cleat actual width in inches"),
+        ]
+        for i, (label, default, attr, placeholder) in enumerate(general_fields):
+            le = QLineEdit(default)
+            le.setMinimumWidth(180)
+            le.setMaximumWidth(300)
+            le.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+            le.setAlignment(Qt.AlignmentFlag.AlignRight)
+            le.setPlaceholderText(placeholder)
+            general_grid.addWidget(QLabel(label), i, 0)
+            general_grid.addWidget(le, i, 1)
+            setattr(self, attr, le)
+        main_layout.insertWidget(0, general_group)
+
         # --- Product Specifications ONLY ---
         prod_group = QGroupBox("\U0001F4E6  Product Specifications")
         prod_grid = QGridLayout()
@@ -123,6 +147,13 @@ class CrateGeneratorUI(QMainWindow):
 
     def get_user_inputs(self):
         try:
+            # General Crate & Panel Parameters
+            product_actual_height = float(self.product_actual_height.text())
+            clearance_above_product = float(self.clearance_above_product.text())
+            ground_clearance = float(self.ground_clearance.text())
+            cleat_actual_width = float(self.cleat_actual_width.text())
+
+            # --- Product Specifications ONLY ---
             weight = float(self.weight.text())
             length = float(self.length.text())
             width = float(self.width.text())
@@ -148,9 +179,10 @@ class CrateGeneratorUI(QMainWindow):
                 'allow_3x4_skids_bool': allow_3x4,
                 'panel_thickness_in': panel_thick,
                 'cleat_thickness_in': cleat_thick,
-                'product_actual_height_in': height,
-                'clearance_above_product_in': clear_above,
-                'ground_clearance_in': ground_clear,
+                'product_actual_height_in': product_actual_height,
+                'clearance_above_product_in': clearance_above_product,
+                'ground_clearance_in': ground_clearance,
+                'cleat_actual_width_in': cleat_actual_width,
                 'floorboard_actual_thickness_in': fb_thick,
                 'selected_std_lumber_widths': selected_lumber,
                 'max_allowable_middle_gap_in': max_gap,

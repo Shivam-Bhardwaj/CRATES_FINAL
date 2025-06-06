@@ -121,6 +121,45 @@ def generate_nx_expressions_file(
             f"[Inch]PANEL_Top_Calc_Width = {panel_params.top_calc_width:.3f}",
             f"[Inch]PANEL_Top_Calc_Length = {panel_params.top_calc_length:.3f}",
             f"[Inch]PANEL_Top_Calc_Depth = {panel_params.top_calc_depth:.3f}\n",
+        ])
+
+        # --- FRONT PANEL DETAIL PARAMETERS ---
+        fp_width = panel_params.front_calc_width
+        fp_height = panel_params.front_calc_height
+        cleat_width = cleat_thickness_in  # Cleat width (thickness) for edge/intermediate cleats
+        edge_cleat_width = cleat_width
+        # Edge cleats: 2 vertical (full height), 2 horizontal (between verticals)
+        edge_vert_cleat_len = fp_height
+        edge_horiz_cleat_len = fp_width - 2 * edge_cleat_width
+        # Open plywood span between edge cleats
+        open_width = fp_width - 2 * edge_cleat_width
+        open_height = fp_height - 2 * edge_cleat_width
+        # Intermediate cleat logic
+        inter_cleat_orientation = "NONE"
+        inter_cleat_count = 0
+        inter_cleat_pitch = 0.0
+        if open_width >= 24.0:
+            inter_cleat_orientation = "VERTICAL"
+            # Number of intermediate cleats (not counting edges)
+            inter_cleat_count = max(0, int((open_width - 1e-6) // 30))
+            if inter_cleat_count > 0:
+                inter_cleat_pitch = open_width / (inter_cleat_count + 1)
+        elif open_height >= 24.0:
+            inter_cleat_orientation = "HORIZONTAL"
+            inter_cleat_count = max(0, int((open_height - 1e-6) // 30))
+            if inter_cleat_count > 0:
+                inter_cleat_pitch = open_height / (inter_cleat_count + 1)
+        expressions_content.extend([
+            f"// --- FRONT PANEL DETAIL PARAMETERS ---",
+            f"[Inch]FP_Plywood_Width = {fp_width:.3f}",
+            f"[Inch]FP_Plywood_Height = {fp_height:.3f}",
+            f"[Inch]FP_Plywood_Thickness = {panel_thickness_in:.3f}",
+            f"[Inch]FP_Edge_Vert_Cleat_Length = {edge_vert_cleat_len:.3f}",
+            f"[Inch]FP_Edge_Horiz_Cleat_Length = {edge_horiz_cleat_len:.3f}",
+            f"[Inch]FP_Edge_Cleat_Width = {edge_cleat_width:.3f}",
+            f"FP_Inter_Cleat_Orientation = \"{inter_cleat_orientation}\"",
+            f"FP_Inter_Cleat_Count = {inter_cleat_count}",
+            f"[Inch]FP_Inter_Cleat_Pitch = {inter_cleat_pitch:.3f}",
             f"// End of Expressions"
         ])
         

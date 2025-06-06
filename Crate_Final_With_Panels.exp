@@ -1,16 +1,16 @@
 // NX Expressions - Skids, Floorboards & Panels (Sandwich Logic Corrected)
-// Generated: 2025-06-06 00:19:52
+// Generated: 2025-06-06 00:53:59
 
 // --- USER INPUTS & CRATE CONSTANTS ---
-[lbm]product_weight = 8000.000
-[Inch]product_length_input = 90.000
-[Inch]product_width_input = 90.000
-[Inch]clearance_side_input = 1.000
+[lbm]product_weight = 5000.000
+[Inch]product_length_input = 100.000
+[Inch]product_width_input = 100.000
+[Inch]clearance_side_input = 2.500
 BOOL_Allow_3x4_Skids_Input = 1
 [Inch]INPUT_Panel_Thickness = 0.250
 [Inch]INPUT_Cleat_Thickness = 0.750
-[Inch]INPUT_Product_Actual_Height = 90.000
-[Inch]INPUT_Clearance_Above_Product = 1.000
+[Inch]INPUT_Product_Actual_Height = 100.000
+[Inch]INPUT_Clearance_Above_Product = 2.000
 [Inch]INPUT_Ground_Clearance_End_Panels = 1.000
 BOOL_Force_Small_Custom_Floorboard = 1
 [Inch]INPUT_Floorboard_Actual_Thickness = 1.500
@@ -18,24 +18,24 @@ BOOL_Force_Small_Custom_Floorboard = 1
 [Inch]INPUT_Min_Custom_Lumber_Width = 2.500
 
 // --- CALCULATED CRATE DIMENSIONS ---
-[Inch]crate_overall_width_OD = 92.000
-[Inch]crate_overall_length_OD = 92.000
+[Inch]crate_overall_width_OD = 105.000
+[Inch]crate_overall_length_OD = 105.000
 
 // --- SKID PARAMETERS ---
 // Skid Lumber Callout: 4x6
 [Inch]Skid_Actual_Height = 3.500
 [Inch]Skid_Actual_Width = 5.500
-[Inch]Skid_Actual_Length = 92.000
-CALC_Skid_Count = 5
-[Inch]CALC_Skid_Pitch = 21.6250
-[Inch]CALC_First_Skid_Pos_X = -43.2500
-[Inch]X_Master_Skid_Origin_Offset = -46.0000
+[Inch]Skid_Actual_Length = 105.000
+CALC_Skid_Count = 6
+[Inch]CALC_Skid_Pitch = 19.9000
+[Inch]CALC_First_Skid_Pos_X = -49.7500
+[Inch]X_Master_Skid_Origin_Offset = -52.5000
 
 // --- FLOORBOARD PARAMETERS ---
-[Inch]FB_Board_Actual_Length = 92.000
+[Inch]FB_Board_Actual_Length = 105.000
 [Inch]FB_Board_Actual_Thickness = 1.500
 [Inch]CALC_FB_Actual_Middle_Gap = 0.0000
-[Inch]CALC_FB_Center_Custom_Board_Width = 0.0000
+[Inch]CALC_FB_Center_Custom_Board_Width = 1.7500
 [Inch]CALC_FB_Start_Y_Offset_Abs = 1.000
 
 // Floorboard Instance Data
@@ -63,12 +63,12 @@ FB_Inst_7_Suppress_Flag = 0
 FB_Inst_8_Suppress_Flag = 0
 [Inch]FB_Inst_8_Actual_Width = 11.2500
 [Inch]FB_Inst_8_Y_Pos_Abs = 79.7500
-FB_Inst_9_Suppress_Flag = 1
-[Inch]FB_Inst_9_Actual_Width = 0.0001
-[Inch]FB_Inst_9_Y_Pos_Abs = 0.0000
-FB_Inst_10_Suppress_Flag = 1
-[Inch]FB_Inst_10_Actual_Width = 0.0001
-[Inch]FB_Inst_10_Y_Pos_Abs = 0.0000
+FB_Inst_9_Suppress_Flag = 0
+[Inch]FB_Inst_9_Actual_Width = 11.2500
+[Inch]FB_Inst_9_Y_Pos_Abs = 91.0000
+FB_Inst_10_Suppress_Flag = 0
+[Inch]FB_Inst_10_Actual_Width = 1.7500
+[Inch]FB_Inst_10_Y_Pos_Abs = 102.2500
 FB_Inst_11_Suppress_Flag = 1
 [Inch]FB_Inst_11_Actual_Width = 0.0001
 [Inch]FB_Inst_11_Y_Pos_Abs = 0.0000
@@ -101,20 +101,30 @@ FB_Inst_20_Suppress_Flag = 1
 [Inch]FB_Inst_20_Y_Pos_Abs = 0.0000
 
 // --- PANEL BOUNDING BOX PARAMETERS ---
-[Inch]PANEL_Front_Calc_Width = 94.000
-[Inch]PANEL_Front_Calc_Height = 98.000
+[Inch]PANEL_Front_Calc_Width = 107.000
+[Inch]PANEL_Front_Calc_Height = 109.000
 [Inch]PANEL_Front_Calc_Depth = 1.000
 
-[Inch]PANEL_Back_Calc_Width = 94.000
-[Inch]PANEL_Back_Calc_Height = 98.000
+[Inch]PANEL_Back_Calc_Width = 107.000
+[Inch]PANEL_Back_Calc_Height = 109.000
 [Inch]PANEL_Back_Calc_Depth = 1.000
 
-[Inch]PANEL_End_Calc_Length = 90.000 // For Left & Right End Panels
-[Inch]PANEL_End_Calc_Height = 100.500 // For Left & Right End Panels
+[Inch]PANEL_End_Calc_Length = 103.000 // For Left & Right End Panels
+[Inch]PANEL_End_Calc_Height = 111.500 // For Left & Right End Panels
 [Inch]PANEL_End_Calc_Depth = 1.000 // For Left & Right End Panels
 
-[Inch]PANEL_Top_Calc_Width = 94.000
-[Inch]PANEL_Top_Calc_Length = 92.000
+[Inch]PANEL_Top_Calc_Width = 107.000
+[Inch]PANEL_Top_Calc_Length = 105.000
 [Inch]PANEL_Top_Calc_Depth = 1.000
 
+// --- FRONT PANEL DETAIL PARAMETERS ---
+[Inch]FP_Plywood_Width = 107.000
+[Inch]FP_Plywood_Height = 109.000
+[Inch]FP_Plywood_Thickness = 0.250
+[Inch]FP_Edge_Vert_Cleat_Length = 109.000
+[Inch]FP_Edge_Horiz_Cleat_Length = 105.500
+[Inch]FP_Edge_Cleat_Width = 0.750
+FP_Inter_Cleat_Orientation = "VERTICAL"
+FP_Inter_Cleat_Count = 3
+[Inch]FP_Inter_Cleat_Pitch = 26.375
 // End of Expressions
