@@ -1,41 +1,41 @@
 // NX Expressions - Skids, Floorboards & Panels (Sandwich Logic Corrected)
-// Generated: 2025-06-05 22:46:47
+// Generated: 2025-06-05 23:25:20
 
 // --- USER INPUTS & CRATE CONSTANTS ---
-[lbm]product_weight = 8000.000
+[lbm]product_weight = 300.000
 [Inch]product_length_input = 100.000
-[Inch]product_width_input = 100.000
-[Inch]clearance_side_input = 2.000
+[Inch]product_width_input = 40.000
+[Inch]clearance_side_input = 2.500
 BOOL_Allow_3x4_Skids_Input = 1
 [Inch]INPUT_Panel_Thickness = 0.250
 [Inch]INPUT_Cleat_Thickness = 0.750
-[Inch]INPUT_Product_Actual_Height = 100.000
+[Inch]INPUT_Product_Actual_Height = 50.000
 [Inch]INPUT_Clearance_Above_Product = 2.000
 [Inch]INPUT_Ground_Clearance_End_Panels = 1.000
-BOOL_Force_Small_Custom_Floorboard = 0
+BOOL_Force_Small_Custom_Floorboard = 1
 [Inch]INPUT_Floorboard_Actual_Thickness = 1.500
 [Inch]INPUT_Max_Allowable_Middle_Gap = 0.250
 [Inch]INPUT_Min_Custom_Lumber_Width = 2.500
 
 // --- CALCULATED CRATE DIMENSIONS ---
-[Inch]crate_overall_width_OD = 104.000
-[Inch]crate_overall_length_OD = 104.000
+[Inch]crate_overall_width_OD = 45.000
+[Inch]crate_overall_length_OD = 105.000
 
 // --- SKID PARAMETERS ---
-// Skid Lumber Callout: 4x6
+// Skid Lumber Callout: 3x4 (oriented for 3.5 H)
 [Inch]Skid_Actual_Height = 3.500
-[Inch]Skid_Actual_Width = 5.500
-[Inch]Skid_Actual_Length = 104.000
-CALC_Skid_Count = 6
-[Inch]CALC_Skid_Pitch = 19.7000
-[Inch]CALC_First_Skid_Pos_X = -49.2500
-[Inch]X_Master_Skid_Origin_Offset = -52.0000
+[Inch]Skid_Actual_Width = 2.500
+[Inch]Skid_Actual_Length = 105.000
+CALC_Skid_Count = 3
+[Inch]CALC_Skid_Pitch = 21.2500
+[Inch]CALC_First_Skid_Pos_X = -21.2500
+[Inch]X_Master_Skid_Origin_Offset = -22.5000
 
 // --- FLOORBOARD PARAMETERS ---
-[Inch]FB_Board_Actual_Length = 104.000
+[Inch]FB_Board_Actual_Length = 45.000
 [Inch]FB_Board_Actual_Thickness = 1.500
 [Inch]CALC_FB_Actual_Middle_Gap = 0.0000
-[Inch]CALC_FB_Center_Custom_Board_Width = 0.0000
+[Inch]CALC_FB_Center_Custom_Board_Width = 1.7500
 [Inch]CALC_FB_Start_Y_Offset_Abs = 1.000
 
 // Floorboard Instance Data
@@ -66,9 +66,9 @@ FB_Inst_8_Suppress_Flag = 0
 FB_Inst_9_Suppress_Flag = 0
 [Inch]FB_Inst_9_Actual_Width = 11.2500
 [Inch]FB_Inst_9_Y_Pos_Abs = 91.0000
-FB_Inst_10_Suppress_Flag = 1
-[Inch]FB_Inst_10_Actual_Width = 0.0001
-[Inch]FB_Inst_10_Y_Pos_Abs = 0.0000
+FB_Inst_10_Suppress_Flag = 0
+[Inch]FB_Inst_10_Actual_Width = 1.7500
+[Inch]FB_Inst_10_Y_Pos_Abs = 102.2500
 FB_Inst_11_Suppress_Flag = 1
 [Inch]FB_Inst_11_Actual_Width = 0.0001
 [Inch]FB_Inst_11_Y_Pos_Abs = 0.0000
@@ -101,20 +101,20 @@ FB_Inst_20_Suppress_Flag = 1
 [Inch]FB_Inst_20_Y_Pos_Abs = 0.0000
 
 // --- PANEL BOUNDING BOX PARAMETERS ---
-[Inch]PANEL_Front_Calc_Width = 106.000
-[Inch]PANEL_Front_Calc_Height = 109.000
+[Inch]PANEL_Front_Calc_Width = 47.000
+[Inch]PANEL_Front_Calc_Height = 59.000
 [Inch]PANEL_Front_Calc_Depth = 1.000
 
-[Inch]PANEL_Back_Calc_Width = 106.000
-[Inch]PANEL_Back_Calc_Height = 109.000
+[Inch]PANEL_Back_Calc_Width = 47.000
+[Inch]PANEL_Back_Calc_Height = 59.000
 [Inch]PANEL_Back_Calc_Depth = 1.000
 
-[Inch]PANEL_End_Calc_Length = 102.000 // For Left & Right End Panels
-[Inch]PANEL_End_Calc_Height = 111.500 // For Left & Right End Panels
+[Inch]PANEL_End_Calc_Length = 103.000 // For Left & Right End Panels
+[Inch]PANEL_End_Calc_Height = 61.500 // For Left & Right End Panels
 [Inch]PANEL_End_Calc_Depth = 1.000 // For Left & Right End Panels
 
-[Inch]PANEL_Top_Calc_Width = 106.000
-[Inch]PANEL_Top_Calc_Length = 104.000
+[Inch]PANEL_Top_Calc_Width = 47.000
+[Inch]PANEL_Top_Calc_Length = 105.000
 [Inch]PANEL_Top_Calc_Depth = 1.000
 
 // End of Expressions

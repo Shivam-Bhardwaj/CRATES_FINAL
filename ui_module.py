@@ -30,180 +30,320 @@ class CrateGeneratorUI:
         self.generation_callback = generation_callback
         
         # Configure main window
-        master.title("NX Crate Exporter (Modular Architecture)")
-        master.geometry("550x880")
+        master.title("NX Crate Expression Generator - Modern Interface")
+        master.geometry("700x900")
+        master.minsize(650, 800)
         
         # Configure styling
         self._setup_styles()
         
-        # Create main frame
-        main_frame = ttk.Frame(master, padding="10")
-        main_frame.grid(row=0, column=0, sticky="nsew")
-        master.columnconfigure(0, weight=1)
-        master.rowconfigure(0, weight=1)
+        # Create scrollable main frame
+        self._create_scrollable_frame(master)
+          # Create UI sections with modern layout
+        self._create_header()
+        self._create_product_specs_section()
+        self._create_construction_specs_section()
+        self._create_lumber_selection_section()
+        self._create_action_section()
         
-        # Create UI sections
-        self._create_skid_section(main_frame)
-        self._create_general_section(main_frame)
-        self._create_floorboard_section(main_frame)
-        self._create_generate_button(main_frame)
-        
-        # Configure main frame grid
-        main_frame.columnconfigure(0, weight=1)
+        # Configure responsive layout
+        self.main_frame.columnconfigure(0, weight=1)
+        self.main_frame.columnconfigure(1, weight=1)
     
     def _setup_styles(self):
-        """Configure ttk styles for the UI."""
+        """Configure modern ttk styles for the UI."""
         style = ttk.Style()
-        style.theme_use('clam')
-        style.configure("TLabel", padding=3, font=('Helvetica', 10))
-        style.configure("TButton", padding=5, font=('Helvetica', 10, 'bold'))
-        style.configure("TEntry", padding=3, font=('Helvetica', 10))
-        style.configure("TCheckbutton", padding=3, font=('Helvetica', 10))
-        style.configure("TLabelframe.Label", font=('Helvetica', 10, 'bold'))
-        self.master.configure(bg='#e1e1e1')
+        
+        # Use a simple, reliable theme
+        style.theme_use('clam')   # Consistent cross-platform theme
+        
+        # Define color scheme with better contrast
+        colors = {
+            'primary': '#2E86AB',      # Professional blue
+            'secondary': '#A23B72',    # Accent purple
+            'success': '#2E8B57',      # Success green
+            'light_gray': '#F8F9FA',   # Light background
+            'medium_gray': '#6C757D',  # Medium text
+            'dark_gray': '#343A40',    # Dark text
+            'white': '#FFFFFF',
+            'entry_bg': '#FFFFFF',     # Entry background
+            'button_bg': '#E9ECEF'     # Button background
+        }
+        
+        # Configure label styles with dark text
+        style.configure("Title.TLabel", 
+                       font=('Segoe UI', 16, 'bold'), 
+                       foreground=colors['primary'],
+                       background=colors['light_gray'])
+        
+        style.configure("Heading.TLabel", 
+                       font=('Segoe UI', 11, 'bold'), 
+                       foreground=colors['dark_gray'],
+                       background=colors['light_gray'])
+        
+        style.configure("Modern.TLabel", 
+                       font=('Segoe UI', 9), 
+                       foreground=colors['dark_gray'],  # Changed from medium_gray to dark_gray for better visibility
+                       background=colors['light_gray'])
+        
+        # Configure entry styles
+        style.configure("Modern.TEntry", 
+                       font=('Segoe UI', 9),
+                       fieldbackground=colors['entry_bg'],
+                       foreground=colors['dark_gray'],
+                       relief="solid",
+                       borderwidth=1,
+                       insertcolor=colors['dark_gray'])
+        
+        # Configure button styles
+        style.configure("Modern.TButton", 
+                       font=('Segoe UI', 10, 'bold'),
+                       relief="raised",
+                       borderwidth=1,
+                       focuscolor='none')
+        
+        style.map("Modern.TButton",
+                 background=[('active', colors['primary']),
+                            ('!active', colors['button_bg'])],
+                 foreground=[('active', colors['white']),
+                            ('!active', colors['dark_gray'])])
+        
+        style.configure("Generate.TButton", 
+                       font=('Segoe UI', 12, 'bold'),
+                       relief="raised",
+                       borderwidth=2,
+                       focuscolor='none')
+        
+        style.map("Generate.TButton",
+                 background=[('active', colors['success']),
+                            ('!active', colors['primary'])],
+                 foreground=[('active', colors['white']),
+                            ('!active', colors['white'])])
+        
+        # Configure checkbox styles
+        style.configure("Modern.TCheckbutton", 
+                       font=('Segoe UI', 9),
+                       foreground=colors['dark_gray'],
+                       background=colors['light_gray'],
+                       focuscolor='none')
+        
+        # Configure labelframe styles
+        style.configure("Modern.TLabelframe", 
+                       relief="solid",
+                       borderwidth=1,
+                       background=colors['light_gray'])
+        
+        style.configure("Modern.TLabelframe.Label", 
+                       font=('Segoe UI', 10, 'bold'),
+                       foreground=colors['primary'],
+                       background=colors['light_gray'])
+        
+        # Configure main window background
+        self.master.configure(bg=colors['light_gray'])
+    
+    def _create_scrollable_frame(self, master):
+        """Create a scrollable frame for the UI content."""
+        # Create canvas and scrollbar
+        self.canvas = tk.Canvas(master, bg='#F8F9FA', highlightthickness=0)
+        scrollbar = ttk.Scrollbar(master, orient="vertical", command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
+        
+        # Configure scrolling
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        )
+        
+        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        self.canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack canvas and scrollbar
+        self.canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+          # Create main frame with padding
+        self.main_frame = ttk.Frame(self.scrollable_frame, padding="20")
+        self.main_frame.pack(fill="both", expand=True)
+        
+        # Bind mousewheel to canvas
+        def _on_mousewheel(event):
+            self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+        self.canvas.bind_all("<MouseWheel>", _on_mousewheel)
+    
+    def _create_header(self):
+        """Create the header section."""
+        header_frame = ttk.Frame(self.main_frame)
+        header_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 30))
+        
+        # Title
+        title_label = ttk.Label(header_frame, 
+                               text="🏗️ NX Crate Expression Generator", 
+                               style="Title.TLabel")
+        title_label.pack()
+        
+        # Subtitle
+        subtitle_label = ttk.Label(header_frame, 
+                                  text="Modern Interface • Parametric Design • Automated Calculations",
+                                  style="Modern.TLabel")
+        subtitle_label.pack(pady=(5, 0))
+    
+    def _create_product_specs_section(self):
+        """Create the product specifications section."""
+        specs_frame = ttk.LabelFrame(self.main_frame, 
+                                    text="📦 Product Specifications", 
+                                    style="Modern.TLabelframe",
+                                    padding="15")
+        specs_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(0, 20))
+        specs_frame.columnconfigure(1, weight=1)
+        specs_frame.columnconfigure(3, weight=1)
+        
+        # Product dimensions in a 2x3 grid
+        dimensions = [
+            ("Weight (lbs):", "300.0", 0, 0),
+            ("Length (in):", "100.0", 0, 2),
+            ("Width (in):", "40.0", 1, 0),
+            ("Height (in):", "50.0", 1, 2),
+            ("Clearance per Side (in):", "2.5", 2, 0),
+            ("Clearance Above (in):", "2.0", 2, 2)
+        ]
+        
+        self.entries = {}
+        for label_text, default_val, row, col in dimensions:
+            # Label
+            label = ttk.Label(specs_frame, text=label_text, style="Modern.TLabel")
+            label.grid(row=row, column=col, sticky="w", padx=(0, 10), pady=5)
+            
+            # Entry
+            entry = ttk.Entry(specs_frame, style="Modern.TEntry", width=15)
+            entry.insert(0, default_val)
+            entry.grid(row=row, column=col+1, sticky="ew", padx=(0, 20), pady=5)
+            
+            # Store entry reference
+            entry_key = label_text.lower().replace(" ", "_").replace("(", "").replace(")", "").replace(":", "")
+            self.entries[entry_key] = entry
+    
+    def _create_construction_specs_section(self):
+        """Create the construction specifications section."""
+        construction_frame = ttk.LabelFrame(self.main_frame, 
+                                           text="🔧 Construction Specifications", 
+                                           style="Modern.TLabelframe",
+                                           padding="15")
+        construction_frame.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(0, 20))
+        construction_frame.columnconfigure(1, weight=1)
+        construction_frame.columnconfigure(3, weight=1)
+        
+        # Construction parameters in 2x3 grid
+        construction_params = [
+            ("Panel Thickness (in):", "0.25", 0, 0),
+            ("Cleat Thickness (in):", "0.75", 0, 2),
+            ("Floorboard Thickness (in):", "1.5", 1, 0),
+            ("Ground Clearance (in):", "1.0", 1, 2),
+            ("Max Middle Gap (in):", "0.25", 2, 0),
+            ("Min Custom Width (in):", "2.5", 2, 2)
+        ]
+        
+        for label_text, default_val, row, col in construction_params:
+            # Label
+            label = ttk.Label(construction_frame, text=label_text, style="Modern.TLabel")
+            label.grid(row=row, column=col, sticky="w", padx=(0, 10), pady=5)
+            
+            # Entry
+            entry = ttk.Entry(construction_frame, style="Modern.TEntry", width=15)
+            entry.insert(0, default_val)
+            entry.grid(row=row, column=col+1, sticky="ew", padx=(0, 20), pady=5)
+            
+            # Store entry reference
+            entry_key = label_text.lower().replace(" ", "_").replace("(", "").replace(")", "").replace(":", "")
+            self.entries[entry_key] = entry
+        
+        # Options checkboxes
+        options_frame = ttk.Frame(construction_frame)
+        options_frame.grid(row=3, column=0, columnspan=4, sticky="ew", pady=(15, 0))
+        
+        self.allow_3x4_skids_var = tk.BooleanVar(value=True)
+        allow_3x4_cb = ttk.Checkbutton(options_frame, 
+                                      text="Allow 3x4 Skids (for loads < 500 lbs)", 
+                                      variable=self.allow_3x4_skids_var,
+                                      style="Modern.TCheckbutton")
+        allow_3x4_cb.pack(anchor="w", pady=2)
+        
+        self.force_small_custom_var = tk.BooleanVar(value=False)
+        force_custom_cb = ttk.Checkbutton(options_frame,
+                                         text=f"Force small custom board for tiny gaps (0.25\" - 2.5\")",
+                                         variable=self.force_small_custom_var,
+                                         style="Modern.TCheckbutton")
+        force_custom_cb.pack(anchor="w", pady=2)
+    
+    def _create_lumber_selection_section(self):
+        """Create the lumber selection section."""
+        lumber_frame = ttk.LabelFrame(self.main_frame, 
+                                     text="🪵 Lumber Selection", 
+                                     style="Modern.TLabelframe",
+                                     padding="15")
+        lumber_frame.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(0, 20))
+        
+        # Description
+        desc_label = ttk.Label(lumber_frame, 
+                              text="Select available standard lumber widths (actual dimensions):",
+                              style="Modern.TLabel")
+        desc_label.pack(anchor="w", pady=(0, 10))
+        
+        # Lumber checkboxes in a grid
+        lumber_grid = ttk.Frame(lumber_frame)
+        lumber_grid.pack(fill="x")
+        
+        self.lumber_vars = {}
+        lumber_options = [
+            ("2×6 (5.5 in)", 5.5),
+            ("2×8 (7.25 in)", 7.25),
+            ("2×10 (9.25 in)", 9.25),
+            ("2×12 (11.25 in)", 11.25)
+        ]
+        
+        for i, (desc, width_val) in enumerate(lumber_options):
+            var = tk.BooleanVar(value=True)
+            cb = ttk.Checkbutton(lumber_grid, 
+                               text=desc, 
+                               variable=var,
+                               style="Modern.TCheckbutton")
+            cb.grid(row=i // 2, column=i % 2, sticky="w", padx=(0, 40), pady=5)
+            self.lumber_vars[width_val] = var
+            lumber_grid.columnconfigure(i % 2, weight=1)
+    
+    def _create_action_section(self):
+        """Create the action buttons section."""
+        action_frame = ttk.Frame(self.main_frame)
+        action_frame.grid(row=4, column=0, columnspan=2, pady=30)
+        
+        # Generate button
+        self.generate_button = ttk.Button(action_frame, 
+                                         text="🚀 Generate NX Expressions File", 
+                                         command=self.generate_file,
+                                         style="Generate.TButton")
+        self.generate_button.pack(ipadx=20, ipady=10)
+        
+        # Status label
+        self.status_label = ttk.Label(action_frame, 
+                                     text="Ready to generate expressions",                                     style="Modern.TLabel")
+        self.status_label.pack(pady=(10, 0))
     
     def _create_skid_section(self, parent):
         """Create the skid parameters section."""
-        skid_frame = ttk.LabelFrame(parent, text="Skid Parameters", padding="10")
-        skid_frame.grid(row=0, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
-        skid_frame.columnconfigure(1, weight=1)
-        
-        # Product weight
-        ttk.Label(skid_frame, text="Product Weight (lbs):").grid(
-            row=0, column=0, sticky="w", pady=2)
-        self.weight_entry = ttk.Entry(skid_frame, width=25)
-        self.weight_entry.grid(row=0, column=1, sticky="ew", pady=2)
-        self.weight_entry.insert(0, "300.0")
-        
-        # Product length
-        ttk.Label(skid_frame, text="Product Length (in):").grid(
-            row=1, column=0, sticky="w", pady=2)
-        self.length_entry = ttk.Entry(skid_frame, width=25)
-        self.length_entry.grid(row=1, column=1, sticky="ew", pady=2)
-        self.length_entry.insert(0, "100.0")
-        
-        # Product width
-        ttk.Label(skid_frame, text="Product Width (in):").grid(
-            row=2, column=0, sticky="w", pady=2)
-        self.width_entry = ttk.Entry(skid_frame, width=25)
-        self.width_entry.grid(row=2, column=1, sticky="ew", pady=2)
-        self.width_entry.insert(0, "40.0")
-        
-        # Clearance per side
-        ttk.Label(skid_frame, text="Clearance per Side (in):").grid(
-            row=3, column=0, sticky="w", pady=2)
-        self.clearance_entry = ttk.Entry(skid_frame, width=25)
-        self.clearance_entry.grid(row=3, column=1, sticky="ew", pady=2)
-        self.clearance_entry.insert(0, "2.5")
-        
-        # Allow 3x4 skids checkbox
-        self.allow_3x4_skids_var = tk.BooleanVar(value=True)
-        self.allow_3x4_skids_cb = ttk.Checkbutton(
-            skid_frame, 
-            text="Allow 3x4 Skids (for loads < 500 lbs)", 
-            variable=self.allow_3x4_skids_var
-        )
-        self.allow_3x4_skids_cb.grid(row=4, column=0, columnspan=2, sticky="w", pady=4)
+        # This method is deprecated - functionality moved to _create_product_specs_section
+        pass
     
     def _create_general_section(self, parent):
         """Create the general crate & panel parameters section."""
-        general_frame = ttk.LabelFrame(parent, text="General Crate & Panel Parameters", padding="10")
-        general_frame.grid(row=1, column=0, columnspan=2, padx=5, pady=10, sticky="ew")
-        general_frame.columnconfigure(1, weight=1)
-        
-        # Panel sheathing thickness
-        ttk.Label(general_frame, text="Panel Sheathing Thickness (in):").grid(
-            row=0, column=0, sticky="w", pady=2)
-        self.panel_thick_entry = ttk.Entry(general_frame, width=25)
-        self.panel_thick_entry.grid(row=0, column=1, sticky="ew", pady=2)
-        self.panel_thick_entry.insert(0, "0.25")
-        
-        # Cleat thickness
-        ttk.Label(general_frame, text="Cleat Thickness (in):").grid(
-            row=1, column=0, sticky="w", pady=2)
-        self.cleat_thick_entry = ttk.Entry(general_frame, width=25)
-        self.cleat_thick_entry.grid(row=1, column=1, sticky="ew", pady=2)   
-        self.cleat_thick_entry.insert(0, "0.75")
-        
-        # Product actual height
-        ttk.Label(general_frame, text="Product Actual Height (in):").grid(
-            row=2, column=0, sticky="w", pady=2)
-        self.product_actual_height_entry = ttk.Entry(general_frame, width=25)
-        self.product_actual_height_entry.grid(row=2, column=1, sticky="ew", pady=2)
-        self.product_actual_height_entry.insert(0, "50.0")
-        
-        # Clearance above product
-        ttk.Label(general_frame, text="Clearance Above Product (in):").grid(
-            row=3, column=0, sticky="w", pady=2)
-        self.clearance_above_product_entry = ttk.Entry(general_frame, width=25)
-        self.clearance_above_product_entry.grid(row=3, column=1, sticky="ew", pady=2)
-        self.clearance_above_product_entry.insert(0, "2.0")
-        
-        # Ground clearance
-        ttk.Label(general_frame, text="Ground Clearance (End Panels, in):").grid(
-            row=4, column=0, sticky="w", pady=2)
-        self.ground_clearance_entry = ttk.Entry(general_frame, width=25)
-        self.ground_clearance_entry.grid(row=4, column=1, sticky="ew", pady=2)
-        self.ground_clearance_entry.insert(0, "1.0")
+        # This method is deprecated - functionality moved to _create_construction_specs_section
+        pass
     
     def _create_floorboard_section(self, parent):
-        """Create the floorboard parameters section."""
-        floor_frame = ttk.LabelFrame(parent, text="Floorboard Parameters", padding="10")
-        floor_frame.grid(row=2, column=0, columnspan=2, padx=5, pady=10, sticky="ew")
-        floor_frame.columnconfigure(1, weight=1)
-        floor_frame.columnconfigure(0, weight=0)
-        
-        # Floorboard actual thickness
-        ttk.Label(floor_frame, text="Floorboard Actual Thickness (in):").grid(
-            row=0, column=0, sticky="w", pady=2)
-        self.fb_thickness_entry = ttk.Entry(floor_frame, width=25)
-        self.fb_thickness_entry.grid(row=0, column=1, sticky="ew", pady=2)
-        self.fb_thickness_entry.insert(0, "1.5")
-        
-        # Max allowable middle gap
-        ttk.Label(floor_frame, text="Max Allowable Middle Gap (in):").grid(
-            row=1, column=0, sticky="w", pady=2)
-        self.fb_max_gap_entry = ttk.Entry(floor_frame, width=25)
-        self.fb_max_gap_entry.grid(row=1, column=1, sticky="ew", pady=2)
-        self.fb_max_gap_entry.insert(0, str(DEFAULT_MAX_ALLOWABLE_MIDDLE_GAP))
-        
-        # Min custom board width
-        ttk.Label(floor_frame, text="Min Custom Board Width (in):").grid(
-            row=2, column=0, sticky="w", pady=2)
-        self.fb_min_custom_entry = ttk.Entry(floor_frame, width=25)
-        self.fb_min_custom_entry.grid(row=2, column=1, sticky="ew", pady=2)
-        self.fb_min_custom_entry.insert(0, str(DEFAULT_MIN_CUSTOM_LUMBER_WIDTH))
-        
-        # Force small custom board checkbox
-        self.force_small_custom_var = tk.BooleanVar(value=False)
-        self.force_small_custom_cb = ttk.Checkbutton(
-            floor_frame,
-            text=f"Force small custom board for tiny gap ({MIN_FORCEABLE_CUSTOM_BOARD_WIDTH}\" - {DEFAULT_MIN_CUSTOM_LUMBER_WIDTH}\")",
-            variable=self.force_small_custom_var
-        )
-        self.force_small_custom_cb.grid(row=3, column=0, columnspan=2, sticky="w", pady=4)
-        
-        # Lumber selection frame
-        lumber_select_frame = ttk.LabelFrame(floor_frame, text="Available Standard Lumber (Actual Widths)", padding="5")
-        lumber_select_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
-        
-        self.lumber_vars = {}
-        max_cols = 2
-        for i, (desc, width_val) in enumerate(DEFAULT_AVAILABLE_STD_LUMBER_WIDTHS.items()):
-            var = tk.BooleanVar(value=True)
-            cb = ttk.Checkbutton(lumber_select_frame, text=desc, variable=var)
-            cb.grid(row=i // max_cols, column=i % max_cols, sticky="w", padx=5, pady=2)
-            self.lumber_vars[width_val] = var
-            lumber_select_frame.columnconfigure(i % max_cols, weight=1)
+        """Create the floorboard parameters section."""        # This method is deprecated - functionality moved to _create_construction_specs_section and _create_lumber_selection_section
+        pass
     
     def _create_generate_button(self, parent):
         """Create the generate button."""
-        self.generate_button = ttk.Button(
-            parent, 
-            text="Generate Expressions File", 
-            command=self.generate_file
-        )
-        self.generate_button.grid(row=3, column=0, columnspan=2, pady=20)
+        # This method is deprecated - functionality moved to _create_action_section
+        pass
     
     def get_user_inputs(self) -> Tuple[bool, Dict]:
         """
@@ -213,19 +353,20 @@ class CrateGeneratorUI:
             Tuple[bool, Dict]: (success, inputs_dict or error_message)
         """
         try:
-            # Extract numeric inputs
-            weight = float(self.weight_entry.get())
-            length = float(self.length_entry.get())
-            width = float(self.width_entry.get())
-            clearance = float(self.clearance_entry.get())
-            panel_thick = float(self.panel_thick_entry.get())
-            cleat_thick = float(self.cleat_thick_entry.get())
-            prod_actual_height = float(self.product_actual_height_entry.get())
-            clear_above_prod = float(self.clearance_above_product_entry.get())
-            ground_clear = float(self.ground_clearance_entry.get())
-            fb_thickness = float(self.fb_thickness_entry.get())
-            fb_max_gap = float(self.fb_max_gap_entry.get())
-            fb_min_custom = float(self.fb_min_custom_entry.get())
+            # Extract numeric inputs from entries dictionary
+            weight = float(self.entries['weight_lbs'].get())
+            length = float(self.entries['length_in'].get())
+            width = float(self.entries['width_in'].get())
+            height = float(self.entries['height_in'].get())
+            clearance = float(self.entries['clearance_per_side_in'].get())
+            clear_above_prod = float(self.entries['clearance_above_in'].get())
+            
+            panel_thick = float(self.entries['panel_thickness_in'].get())
+            cleat_thick = float(self.entries['cleat_thickness_in'].get())
+            fb_thickness = float(self.entries['floorboard_thickness_in'].get())
+            ground_clear = float(self.entries['ground_clearance_in'].get())
+            fb_max_gap = float(self.entries['max_middle_gap_in'].get())
+            fb_min_custom = float(self.entries['min_custom_width_in'].get())
             
             # Extract boolean inputs
             allow_3x4 = self.allow_3x4_skids_var.get()
@@ -245,7 +386,7 @@ class CrateGeneratorUI:
                 'allow_3x4_skids_bool': allow_3x4,
                 'panel_thickness_in': panel_thick,
                 'cleat_thickness_in': cleat_thick,
-                'product_actual_height_in': prod_actual_height,
+                'product_actual_height_in': height,
                 'clearance_above_product_in': clear_above_prod,
                 'ground_clearance_in': ground_clear,
                 'floorboard_actual_thickness_in': fb_thickness,
@@ -257,34 +398,50 @@ class CrateGeneratorUI:
             
             return True, inputs
             
-        except ValueError as e:
-            return False, f"Invalid number entered: {e}"
+        except ValueError as e:            return False, f"Invalid number entered: {e}"
+        except KeyError as e:
+            return False, f"Missing input field: {e}"
     
     def generate_file(self):
         """Handle the generate file button click."""
+        # Update status
+        self.status_label.config(text="Validating inputs...")
+        self.master.update()
+        
         # Get user inputs
         success, inputs = self.get_user_inputs()
         if not success:
+            self.status_label.config(text="Input validation failed")
             messagebox.showerror("Input Error", inputs)
             return
         
         # Get output filename
+        self.status_label.config(text="Selecting output file...")
+        self.master.update()
+        
         output_filename = filedialog.asksaveasfilename(
             defaultextension=".exp",
             initialfile="Crate_Final_With_Panels.exp",
             filetypes=[("NX Expression files", "*.exp"), ("All files", "*.*")]
         )
         if not output_filename:
+            self.status_label.config(text="File selection cancelled")
             return
         
         # Call the generation callback
         try:
+            self.status_label.config(text="Generating expressions file...")
+            self.master.update()
+            
             success, message = self.generation_callback(inputs, output_filename)
             if success:
+                self.status_label.config(text="✅ File generated successfully!")
                 messagebox.showinfo("Success", message)
             else:
+                self.status_label.config(text="❌ Generation failed")
                 messagebox.showerror("Error", message)
         except Exception as e:
+            self.status_label.config(text="❌ Unexpected error occurred")
             messagebox.showerror("Error", f"Unexpected error: {e}")
 
 def create_ui(generation_callback) -> tk.Tk:
