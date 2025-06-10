@@ -1,15 +1,16 @@
-// NX Expressions - Skids, Floorboards & Panels (Sandwich Logic Corrected)
-// Generated: 2025-06-06 00:53:59
+// NX Expressions - Skids, Floorboards & Detailed Panels
+// Generated: 2025-06-10 01:26:46
 
 // --- USER INPUTS & CRATE CONSTANTS ---
-[lbm]product_weight = 5000.000
-[Inch]product_length_input = 100.000
-[Inch]product_width_input = 100.000
+[lbm]product_weight = 300.000
+[Inch]product_length_input = 45.000
+[Inch]product_width_input = 45.000
 [Inch]clearance_side_input = 2.500
 BOOL_Allow_3x4_Skids_Input = 1
 [Inch]INPUT_Panel_Thickness = 0.250
 [Inch]INPUT_Cleat_Thickness = 0.750
-[Inch]INPUT_Product_Actual_Height = 100.000
+[Inch]INPUT_Cleat_Member_Actual_Width = 3.500
+[Inch]INPUT_Product_Actual_Height = 45.000
 [Inch]INPUT_Clearance_Above_Product = 2.000
 [Inch]INPUT_Ground_Clearance_End_Panels = 1.000
 BOOL_Force_Small_Custom_Floorboard = 1
@@ -18,24 +19,23 @@ BOOL_Force_Small_Custom_Floorboard = 1
 [Inch]INPUT_Min_Custom_Lumber_Width = 2.500
 
 // --- CALCULATED CRATE DIMENSIONS ---
-[Inch]crate_overall_width_OD = 105.000
-[Inch]crate_overall_length_OD = 105.000
+[Inch]crate_overall_width_OD = 50.000
+[Inch]crate_overall_length_OD = 50.000
 
 // --- SKID PARAMETERS ---
-// Skid Lumber Callout: 4x6
+// Skid Lumber Callout: 3x4 (oriented for 3.5 H)
 [Inch]Skid_Actual_Height = 3.500
-[Inch]Skid_Actual_Width = 5.500
-[Inch]Skid_Actual_Length = 105.000
-CALC_Skid_Count = 6
-[Inch]CALC_Skid_Pitch = 19.9000
-[Inch]CALC_First_Skid_Pos_X = -49.7500
-[Inch]X_Master_Skid_Origin_Offset = -52.5000
+[Inch]Skid_Actual_Width = 2.500
+[Inch]Skid_Actual_Length = 50.000
+CALC_Skid_Count = 3
+[Inch]CALC_Skid_Pitch = 23.7500
+[Inch]X_Master_Skid_Origin_Offset = -25.0000
 
 // --- FLOORBOARD PARAMETERS ---
-[Inch]FB_Board_Actual_Length = 105.000
+[Inch]FB_Board_Actual_Length = 50.000
 [Inch]FB_Board_Actual_Thickness = 1.500
 [Inch]CALC_FB_Actual_Middle_Gap = 0.0000
-[Inch]CALC_FB_Center_Custom_Board_Width = 1.7500
+[Inch]CALC_FB_Center_Custom_Board_Width = 3.0000
 [Inch]CALC_FB_Start_Y_Offset_Abs = 1.000
 
 // Floorboard Instance Data
@@ -52,23 +52,23 @@ FB_Inst_4_Suppress_Flag = 0
 [Inch]FB_Inst_4_Actual_Width = 11.2500
 [Inch]FB_Inst_4_Y_Pos_Abs = 34.7500
 FB_Inst_5_Suppress_Flag = 0
-[Inch]FB_Inst_5_Actual_Width = 11.2500
+[Inch]FB_Inst_5_Actual_Width = 3.0000
 [Inch]FB_Inst_5_Y_Pos_Abs = 46.0000
-FB_Inst_6_Suppress_Flag = 0
-[Inch]FB_Inst_6_Actual_Width = 11.2500
-[Inch]FB_Inst_6_Y_Pos_Abs = 57.2500
-FB_Inst_7_Suppress_Flag = 0
-[Inch]FB_Inst_7_Actual_Width = 11.2500
-[Inch]FB_Inst_7_Y_Pos_Abs = 68.5000
-FB_Inst_8_Suppress_Flag = 0
-[Inch]FB_Inst_8_Actual_Width = 11.2500
-[Inch]FB_Inst_8_Y_Pos_Abs = 79.7500
-FB_Inst_9_Suppress_Flag = 0
-[Inch]FB_Inst_9_Actual_Width = 11.2500
-[Inch]FB_Inst_9_Y_Pos_Abs = 91.0000
-FB_Inst_10_Suppress_Flag = 0
-[Inch]FB_Inst_10_Actual_Width = 1.7500
-[Inch]FB_Inst_10_Y_Pos_Abs = 102.2500
+FB_Inst_6_Suppress_Flag = 1
+[Inch]FB_Inst_6_Actual_Width = 0.0001
+[Inch]FB_Inst_6_Y_Pos_Abs = 0.0000
+FB_Inst_7_Suppress_Flag = 1
+[Inch]FB_Inst_7_Actual_Width = 0.0001
+[Inch]FB_Inst_7_Y_Pos_Abs = 0.0000
+FB_Inst_8_Suppress_Flag = 1
+[Inch]FB_Inst_8_Actual_Width = 0.0001
+[Inch]FB_Inst_8_Y_Pos_Abs = 0.0000
+FB_Inst_9_Suppress_Flag = 1
+[Inch]FB_Inst_9_Actual_Width = 0.0001
+[Inch]FB_Inst_9_Y_Pos_Abs = 0.0000
+FB_Inst_10_Suppress_Flag = 1
+[Inch]FB_Inst_10_Actual_Width = 0.0001
+[Inch]FB_Inst_10_Y_Pos_Abs = 0.0000
 FB_Inst_11_Suppress_Flag = 1
 [Inch]FB_Inst_11_Actual_Width = 0.0001
 [Inch]FB_Inst_11_Y_Pos_Abs = 0.0000
@@ -100,31 +100,93 @@ FB_Inst_20_Suppress_Flag = 1
 [Inch]FB_Inst_20_Actual_Width = 0.0001
 [Inch]FB_Inst_20_Y_Pos_Abs = 0.0000
 
-// --- PANEL BOUNDING BOX PARAMETERS ---
-[Inch]PANEL_Front_Calc_Width = 107.000
-[Inch]PANEL_Front_Calc_Height = 109.000
-[Inch]PANEL_Front_Calc_Depth = 1.000
+// --- OVERALL PANEL ASSEMBLY DIMENSIONS (Informational) ---
+[Inch]PANEL_Front_Assy_Overall_Width = 52.000
+[Inch]PANEL_Front_Assy_Overall_Height = 48.500
+[Inch]PANEL_Front_Assy_Overall_Depth = 1.000
 
-[Inch]PANEL_Back_Calc_Width = 107.000
-[Inch]PANEL_Back_Calc_Height = 109.000
-[Inch]PANEL_Back_Calc_Depth = 1.000
+[Inch]PANEL_Back_Assy_Overall_Width = 52.000
+[Inch]PANEL_Back_Assy_Overall_Height = 48.500
+[Inch]PANEL_Back_Assy_Overall_Depth = 1.000
 
-[Inch]PANEL_End_Calc_Length = 103.000 // For Left & Right End Panels
-[Inch]PANEL_End_Calc_Height = 111.500 // For Left & Right End Panels
-[Inch]PANEL_End_Calc_Depth = 1.000 // For Left & Right End Panels
+[Inch]PANEL_End_Assy_Overall_Length_Face = 48.000 // For Left & Right End Panels
+[Inch]PANEL_End_Assy_Overall_Height = 51.000
+[Inch]PANEL_End_Assy_Overall_Depth_Thickness = 1.000
 
-[Inch]PANEL_Top_Calc_Width = 107.000
-[Inch]PANEL_Top_Calc_Length = 105.000
-[Inch]PANEL_Top_Calc_Depth = 1.000
+[Inch]PANEL_Top_Assy_Overall_Width = 52.000
+[Inch]PANEL_Top_Assy_Overall_Length = 50.000
+[Inch]PANEL_Top_Assy_Overall_Depth_Thickness = 1.000
 
-// --- FRONT PANEL DETAIL PARAMETERS ---
-[Inch]FP_Plywood_Width = 107.000
-[Inch]FP_Plywood_Height = 109.000
+// --- FRONT PANEL COMPONENT DETAILS ---
+// Plywood Sheathing
+[Inch]FP_Plywood_Width = 52.000
+[Inch]FP_Plywood_Height = 48.500
 [Inch]FP_Plywood_Thickness = 0.250
-[Inch]FP_Edge_Vert_Cleat_Length = 109.000
-[Inch]FP_Edge_Horiz_Cleat_Length = 105.500
-[Inch]FP_Edge_Cleat_Width = 0.750
-FP_Inter_Cleat_Orientation = "VERTICAL"
-FP_Inter_Cleat_Count = 3
-[Inch]FP_Inter_Cleat_Pitch = 26.375
+
+// Horizontal Cleats (Top & Bottom)
+[Inch]FP_Horizontal_Cleat_Length = 52.000
+[Inch]FP_Horizontal_Cleat_Material_Thickness = 0.750
+[Inch]FP_Horizontal_Cleat_Material_Member_Width = 3.500
+FP_Horizontal_Cleat_Count = 2
+
+// Vertical Cleats (Left & Right)
+[Inch]FP_Vertical_Cleat_Length = 41.500
+[Inch]FP_Vertical_Cleat_Material_Thickness = 0.750
+[Inch]FP_Vertical_Cleat_Material_Member_Width = 3.500
+FP_Vertical_Cleat_Count = 2
+
+// --- BACK PANEL COMPONENT DETAILS ---
+// Plywood Sheathing
+[Inch]BP_Plywood_Width = 52.000
+[Inch]BP_Plywood_Height = 48.500
+[Inch]BP_Plywood_Thickness = 0.250
+
+// Horizontal Cleats (Top & Bottom)
+[Inch]BP_Horizontal_Cleat_Length = 52.000
+[Inch]BP_Horizontal_Cleat_Material_Thickness = 0.750
+[Inch]BP_Horizontal_Cleat_Material_Member_Width = 3.500
+BP_Horizontal_Cleat_Count = 2
+
+// Vertical Cleats (Left & Right)
+[Inch]BP_Vertical_Cleat_Length = 41.500
+[Inch]BP_Vertical_Cleat_Material_Thickness = 0.750
+[Inch]BP_Vertical_Cleat_Material_Member_Width = 3.500
+BP_Vertical_Cleat_Count = 2
+
+// --- END PANEL COMPONENT DETAILS (for Left & Right panels) ---
+// Plywood Sheathing
+[Inch]EP_Plywood_Face_Width = 48.000
+[Inch]EP_Plywood_Height = 51.000
+[Inch]EP_Plywood_Thickness = 0.250
+
+// Vertical Cleats (Left & Right - run full height)
+[Inch]EP_Vertical_Cleat_Length = 51.000
+[Inch]EP_Vertical_Cleat_Material_Thickness = 0.750
+[Inch]EP_Vertical_Cleat_Material_Member_Width = 3.500
+EP_Vertical_Cleat_Count = 2
+
+// Horizontal Cleats (Top & Bottom - fit between vertical cleats)
+[Inch]EP_Horizontal_Cleat_Length = 41.000
+[Inch]EP_Horizontal_Cleat_Material_Thickness = 0.750
+[Inch]EP_Horizontal_Cleat_Material_Member_Width = 3.500
+EP_Horizontal_Cleat_Count = 2
+
+// --- TOP PANEL COMPONENT DETAILS ---
+// Plywood Sheathing
+[Inch]TP_Plywood_Width = 52.000
+[Inch]TP_Plywood_Length = 50.000
+[Inch]TP_Plywood_Thickness = 0.250
+
+// Primary Cleats (e.g., along length)
+[Inch]TP_Primary_Cleat_Length = 50.000
+[Inch]TP_Primary_Cleat_Material_Thickness = 0.750
+[Inch]TP_Primary_Cleat_Material_Member_Width = 3.500
+TP_Primary_Cleat_Count = 2
+
+// Secondary Cleats (e.g., across width, between primary)
+[Inch]TP_Secondary_Cleat_Length = 45.000
+[Inch]TP_Secondary_Cleat_Material_Thickness = 0.750
+[Inch]TP_Secondary_Cleat_Material_Member_Width = 3.500
+TP_Secondary_Cleat_Count = 2
+
 // End of Expressions
